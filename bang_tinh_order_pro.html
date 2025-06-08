@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -265,7 +266,7 @@
       <label><input type="radio" name="productType" value="electronics" onchange="tinhDonHang()"> Đồ điện tử</label>
     </div>
 
-    <h3>📦 BẢNG TÍNH GIÁ ORDER FIGURE / ĐỒ ĐIỆN TỬ TỪ NHẬT</h3>
+    <h3>📦 BẢNG TÍNH CHI PHÍ ORDER FIGURE TỪ NHẬT BẢN</h3>
 
     <table>
       <tbody>
@@ -276,7 +277,7 @@
         </tr>
         <tr>
           <td>🧾 Phí thanh toán (3%)</td>
-          <td><input id="o2" type="text" readonly placeholder="Phí thanh toán"></td>
+          <td><input id="o2" type="text" readonly placeholder="Phí thanh toán (3%) + 1200¥ nếu là đồ điện tử"></td>
           <td>¥</td>
         </tr>
         <tr>
@@ -305,8 +306,8 @@
           <td>₫</td>
         </tr>
         <tr>
-          <td>📦 Phí dịch vụ cố định</td>
-          <td><input id="o71" type="text" readonly placeholder="200.000 - 400.000"></td>
+          <td>📦 Phí dịch vụ (Từ 200.000₫ - 400.000₫)</td>
+          <td><input id="o71" type="text" readonly placeholder="Tùy theo giá trị sản phẩm tối đa 400.000₫"></td>
           <td>₫</td>
         </tr>
         <tr>
@@ -323,15 +324,15 @@
           <option value="zalo">📱 Gửi qua Zalo</option>
           <option value="messenger">💬 Gửi qua Messenger</option>
         </select>
-        <button onclick="sendToContact()">📤 Gửi bảng tính</button>
+        <button onclick="sendToContact()">📤 Gửi </button>
       </div>
       <button onclick="window.print()">🖨️ In bảng tính</button>
-      <button onclick="resetForm()">🔄 Nhập lại</button>
+      <button onclick="resetForm()">🔄 Nhập lại số liệu</button>
     </div>
 
-    <div class="note">👉 Bạn vui lòng nhập đầy đủ thông tin để tính chi phí chính xác.</div>
-    <div class="note">👉 Cọc 30% sau khi xác nhận để shop đặt hàng cho bạn nhé.</div>
-    <div class="note">⚠️ Chưa bao gồm phí giao hàng tận nhà cho quý khách.</div>
+    <div class="note">👉 Bạn vui lòng nhập đầy đủ thông tin để shop ước tính chi phí có thể cho bạn.</div>
+    <div class="note">👉 Vui lòng cọc 30% sau khi xác nhận để shop đặt hàng cho bạn nhé.</div>
+    <div class="note">⚠️ Phần "Tổng thiệt hại ước tính" chưa bao gồm phí giao sản phẩm đến tận nhà cho bạn.</div>
   </div>
 
   <script>
@@ -404,7 +405,7 @@
     function sendToContact() {
       const method = document.getElementById("contactMethod").value;
       if (method === "zalo") {
-        window.open("https://zalo.me/0904845938");
+        window.open("https://zalo.me/0988767811");
       } else if (method === "messenger") {
         window.open("https://m.me/vulefigure");
       }
