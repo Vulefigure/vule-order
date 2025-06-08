@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -19,24 +20,6 @@
       font-family: 'Arial', sans-serif;
       margin: 0;
       padding: 20px;
-    }
-
-    .header {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 10px;
-    }
-
-    .logo {
-      height: 40px;
-      border-radius: 8px;
-    }
-
-    .shop-name {
-      font-weight: bold;
-      font-size: 16px;
-      color: var(--primary);
     }
 
     ::placeholder {
@@ -188,14 +171,6 @@
       font-size: 14px;
     }
 
-    .print-footer {
-      display: none;
-      margin-top: 30px;
-      font-size: 13px;
-      color: #555;
-      text-align: right;
-    }
-
     @media (max-width: 600px) {
       .bang-tinh {
         padding: 12px;
@@ -280,38 +255,95 @@
       .product-selector {
         display: none !important;
       }
-
-      .print-footer {
-        display: block;
-        position: fixed;
-        bottom: 1cm;
-        right: 1cm;
-        color: #000;
+    }
+      .print-only {
+        display: block !important;
       }
     }
   </style>
 </head>
 <body>
   <div class="bang-tinh">
-    <div class="header">
-      <img src="https://raw.githubusercontent.com/Vulefigure/vule-order/1a322f1bd19194af65474da7ab004d7b3bcf7bec/Vulefigure.jpg" alt="Logo" class="logo">
-      <div class="shop-name">Vũ Lê Figure</div>
-    </div>
-
     <div class="product-selector">
       <label>Loại sản phẩm:</label>
       <label><input type="radio" name="productType" value="figure" checked onchange="tinhDonHang()"> Figure</label>
       <label><input type="radio" name="productType" value="electronics" onchange="tinhDonHang()"> Đồ điện tử</label>
+      <!-- ✅ Logo bên trái -->
+    <img src="https://raw.githubusercontent.com/Vulefigure/vule-order/1a322f1bd19194af65474da7ab004d7b3bcf7bec/Vulefigure.jpg" 
+         alt="Logo Vũ Lê Figure" 
+         style="height: 48px; border-radius: 10px; position: absolute; top: 20px; left: 20px;" />
     </div>
 
-    <h3>📦 BẢNG TÍNH CHI PHÍ ORDER FIGURE TỪ NHẬT BẢN</h3>
+    <h3 style="text-align: center;">📦 BẢNG TÍNH CHI PHÍ ORDER FIGURE TỪ NHẬT BẢN</h3>
 
-    <!-- ... các bảng và nút giữ nguyên như mã cũ ... -->
+    <table>
+      <tbody>
+        <tr>
+          <td>💴 Giá website Nhật hiển thị (JPY)</td>
+          <td><input id="o1" type="number" placeholder="Nhập giá web" oninput="tinhDonHang()"></td>
+          <td>¥</td>
+        </tr>
+        <tr>
+          <td>🧾 Phí thanh toán (3%)</td>
+          <td><input id="o2" type="text" readonly placeholder="Phí thanh toán (3%) + 1200¥ nếu là đồ điện tử"></td>
+          <td>¥</td>
+        </tr>
+        <tr>
+          <td>🚚 Phí vận chuyển nội địa Nhật</td>
+          <td><input id="o3" type="number" placeholder="Ship nội địa" oninput="tinhDonHang()"></td>
+          <td>¥</td>
+        </tr>
+        <tr>
+          <td>💱 Tỷ giá Yên/VNĐ</td>
+          <td><input id="o4" type="number" value="195" readonly></td>
+          <td>¥ / ₫</td>
+        </tr>
+        <tr>
+          <td>💡 Tổng tạm tính</td>
+          <td><input id="o5" type="text" readonly placeholder="Tạm tính VNĐ"></td>
+          <td>₫</td>
+        </tr>
+        <tr>
+          <td>⚖️ Khối lượng sản phẩm (kg)</td>
+          <td><input id="o6" type="number" placeholder="Nhập khối lượng" oninput="tinhDonHang()"></td>
+          <td>Kg</td>
+        </tr>
+        <tr>
+          <td>✈️ Phí vận chuyển Nhật - Việt (190.000₫/kg)</td>
+          <td><input id="o7" type="text" readonly placeholder="Phí vận chuyển"></td>
+          <td>₫</td>
+        </tr>
+        <tr>
+          <td>📦 Phí dịch vụ (Từ 200.000₫ - 400.000₫)</td>
+          <td><input id="o71" type="text" readonly placeholder="Tùy theo giá trị sản phẩm tối đa 400.000₫"></td>
+          <td>₫</td>
+        </tr>
+        <tr>
+          <td>💰 Tổng thiệt hại ước tính 😋</td>
+          <td><input id="o8" type="text" readonly placeholder="Tổng thiệt hại"></td>
+          <td>₫</td>
+        </tr>
+      </tbody>
+    </table>
 
-    <!-- In phần footer khi in -->
-    <div class="print-footer">
+    <div class="buttons">
+      <div class="send-options">
+        <select id="contactMethod">
+          <option value="zalo">📱 Gửi qua Zalo</option>
+          <option value="messenger">💬 Gửi qua Messenger</option>
+        </select>
+        <button onclick="sendToContact()">📤 Gửi </button>
+      </div>
+      <button onclick="window.print()">🖨️ In bảng tính</button>
+      <button onclick="resetForm()">🔄 Nhập lại số liệu</button>
+    </div>
+<div class="note print-only" style="display: none; text-align: center; margin-top: 20px; font-size: 13px;">
       Vũ Lê Figure - In lúc: <span id="printTime"></span>
     </div>
+  </div>
+    <div class="note">👉 Bạn vui lòng nhập đầy đủ thông tin để shop ước tính chi phí có thể cho bạn.</div>
+    <div class="note">👉 Vui lòng cọc 30% sau khi xác nhận để shop đặt hàng cho bạn nhé.</div>
+    <div class="note">⚠️ Phần "Tổng thiệt hại ước tính" chưa bao gồm phí giao sản phẩm đến tận nhà cho bạn.</div>
   </div>
 
   <script>
@@ -390,18 +422,17 @@
       }
     }
 
-    function setPrintTime() {
+    window.onload = restoreFromLocal;
+    window.onbeforeprint = () => {
       const now = new Date();
       const formatted = now.toLocaleString("vi-VN");
       document.getElementById("printTime").textContent = formatted;
-    }
+      document.querySelector(".print-only").style.display = "block";
+    };
 
-    window.onload = function () {
-      restoreFromLocal();
-      setPrintTime();
-    }
-
-    window.onbeforeprint = setPrintTime;
+    window.onafterprint = () => {
+      document.querySelector(".print-only").style.display = "none";
+    };
   </script>
 </body>
 </html>
