@@ -150,6 +150,43 @@ body {
   cursor: pointer;
   font-size: 14px;
 }
+      .bang-tinh td:first-child {
+  text-align: left;
+  padding-left: 12px;
+}
+
+/* 2. Căn đều các nút theo chiều ngang */
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.send-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  flex: 1;
+  justify-content: center;
+}
+
+.send-options select,
+.send-options button,
+.buttons > button {
+  flex: 1 1 120px;
+  max-width: 200px;
+  text-align: center;
+}
+
+/* 3. Khoảng cách giữa các dòng ghi chú */
+.note {
+  margin-top: 8px;
+  line-height: 1.5;
+  color: #ccc;
+}
 </style>
 
   </head>
@@ -221,9 +258,9 @@ body {
       <option value="messenger">💬 Qua Messenger</option>
     </select>
     <button onclick="sendToContact()">📤 Liên hệ</button>
-    <button onclick="window.print()">🖨️ In bảng tính</button>
-    <button onclick="resetForm()">🔄 Nhập lại</button>
   </div>
+  <button onclick="window.print()">🖨️ In bảng tính</button>
+  <button onclick="resetForm()">🔄 Nhập lại</button>
 </div>
   
       <div class="note">👉 Bạn vui lòng nhập đầy đủ thông tin để shop ước tính chi phí có thể cho bạn.</div>
