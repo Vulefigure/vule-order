@@ -206,6 +206,35 @@ body {
   box-shadow: inset 2px 2px 5px rgba(0,0,0,0.6),
               inset -2px -2px 5px rgba(255,255,255,0.05);
 }
+/* Canh đều chiều cao button và select */
+.bang-tinh .send-options {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+.bang-tinh select {
+  height: 42px;
+  padding: 0 40px 0 12px;
+  font-size: 15px;
+  border-radius: 8px;
+  border: 1px solid #3a3a3a;
+  background-color: #1c1c1c;
+  color: var(--text);
+  appearance: none;
+  position: relative;
+  background-image: url("data:image/svg+xml,%3Csvg fill='white' height='16' viewBox='0 0 24 24' width='16' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 16px;
+  cursor: pointer;
+}
+
+.bang-tinh button {
+  height: 42px;
+}
 
 </style>
 
@@ -272,13 +301,15 @@ body {
       </table>
   
       <div class="buttons">
-  <div class="send-options">
-    <select id="contactMethod">
-      <option value="zalo">📱 Qua Zalo</option>
-      <option value="messenger">💬 Qua Messenger</option>
-    </select>
-    <button onclick="sendToContact()">📤 Liên hệ</button>
-  </div>
+ <div class="send-options">
+  <label for="contactMethod" style="display:none;">Chọn phương thức liên hệ</label>
+  <select id="contactMethod" aria-label="Chọn phương thức liên hệ">
+    <option disabled selected>📤 Gửi liên hệ qua...</option>
+    <option value="zalo">📱 Zalo</option>
+    <option value="messenger">💬 Messenger</option>
+  </select>
+  <button onclick="sendToContact()">Gửi</button>
+</div>
   <button onclick="window.print()">🖨️ In bảng tính</button>
   <button onclick="resetForm()">🔄 Nhập lại</button>
 </div>
