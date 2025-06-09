@@ -313,7 +313,7 @@ button:active {
         </tr>
         <tr id="o71-row">
           <td>📦 Phí dịch vụ (Từ 200.000₫ - 400.000₫)</td>
-          <td><input id="o71" type="text" readonly></td>
+          <input id="o71" type="text" readonly placeholder="Sẽ tự tính khi nhập giá">
           <td>₫</td>
         </tr>
         <tr>
@@ -370,8 +370,6 @@ button:active {
       document.getElementById("o7").value = format(o7);
       document.getElementById("o8").value = o1 > 0 && o6 > 0 ? format(o8) : "";
 
-      const row = document.getElementById("o71-row");
-      row.style.display = o1 > 0 ? "table-row" : "none";
       document.getElementById("o71").value = o1 > 0 ? format(o71) : "";
 
       saveToLocal();
