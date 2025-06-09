@@ -335,6 +335,11 @@ body {
             <td>¥ / ₫</td>
           </tr>
           <tr>
+  <td colspan="3">
+    <div id="tygia-note" style="font-size: 0.85em; color: #00FF99; margin-top: 4px;"></div>
+  </td>
+</tr>
+          <tr>
             <td>💡 Tổng tạm tính</td>
             <td><input id="o5" type="text" readonly placeholder="Tạm tính VNĐ"></td>
             <td>₫</td>
@@ -355,7 +360,7 @@ body {
             <td>₫</td>
           </tr>
           <tr>
-            <td>💰 Tổng thiệt hại ước tính 😋</td>
+            <td><strong>💰 Tổng thiệt hại ước tính 😋</strong></td>
             <td><input id="o8" type="text" readonly placeholder="Tổng thiệt hại"></td>
             <td>₫</td>
           </tr>
@@ -371,9 +376,6 @@ body {
     <a href="https://zalo.me/0988767811" target="_blank">📱 Qua Zalo</a>
     <a href="https://m.me/vulefigure" target="_blank">💬 Qua Messenger</a>
   </div>
-</div>
-  <button onclick="sendToContact()">Gửi</button>
-</div>
   <button onclick="window.print()">🖨️ In bảng tính</button>
   <button onclick="resetForm()">🔄 Nhập lại</button>
 </div>
@@ -381,7 +383,6 @@ body {
       <div class="note">👉 Bạn vui lòng nhập đầy đủ thông tin để shop ước tính chi phí có thể cho bạn.</div>
       <div class="note">👉 Vui lòng cọc 30% sau khi xác nhận để shop đặt hàng cho bạn nhé.</div>
       <div class="note">⚠️ Phần "Tổng thiệt hại ước tính" chưa bao gồm phí giao sản phẩm đến tận nhà cho bạn.</div>
-      <div class="note" id="tygia-note"></div>
     </div>
   
     <script>
