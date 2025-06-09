@@ -512,28 +512,44 @@ input[readonly]::placeholder {
   if (el) el.style.display = "none";
 });
 
+// Ẩn toàn bộ ảnh
+["goku-img", "goku-ssj-img", "anime-smirk-img", "anime-rich-img"].forEach(id => {
+  const el = document.getElementById(id);
+  if (el) el.style.display = "none";
+});
+
+// Popup xử lý
 const popup = document.getElementById("easter-popup");
 popup.style.display = "none";
 popup.innerText = "";
+popup.style.background = "#f39c12"; // Reset
 
 if (o8 > 30000000) {
   document.getElementById("anime-rich-img").style.display = "block";
-  popup.style.background = "#ff3333";
+  popup.style.background = "#c084fc"; // Tím neon
+  popup.style.color = "white";
   popup.innerText = "🛑 Gọi cấp cứu ví tiền!!";
   popup.style.display = "block";
 } else if (o8 > 20000000) {
   document.getElementById("anime-smirk-img").style.display = "block";
+  popup.style.background = "#ff3b3b"; // Đỏ rực
+  popup.style.color = "white";
   popup.innerText = "💥 Bạn là huyền thoại rồi đấy!";
   popup.style.display = "block";
 } else if (o8 > 10000000) {
   document.getElementById("goku-ssj-img").style.display = "block";
+  popup.style.background = "#ff914d"; // Cam sáng
+  popup.style.color = "black";
   popup.innerText = "🔥 Cố lên chiến thần!";
   popup.style.display = "block";
 } else if (o8 > 5000000) {
   document.getElementById("goku-img").style.display = "block";
+  popup.style.background = "#ffe066"; // Vàng chanh
+  popup.style.color = "black";
   popup.innerText = "😳 Chuẩn bị tinh thần đi nha...";
   popup.style.display = "block";
 }
+
 
 
       const format = v => v === 0 ? "" : v.toLocaleString("vi-VN");
