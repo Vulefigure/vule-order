@@ -260,7 +260,10 @@ button:active {
   transform: translateY(2px);
   box-shadow: 0 2px 0 #a08708;
 }
-
+input[readonly]::placeholder {
+  color: #777;
+  font-style: italic;
+}
   </style>
 </head>
 <body>
@@ -283,7 +286,7 @@ button:active {
         </tr>
         <tr>
           <td>🧾 Phí thanh toán bên Nhật (3%)</td>
-          <td><input id="o2" type="text" readonly></td>
+          <td><input id="o2" type="text" readonly placeholder="Sẽ tự tính"></td>
           <td>¥</td>
         </tr>
         <tr>
@@ -298,7 +301,7 @@ button:active {
         </tr>
         <tr>
           <td>💡 Tổng tạm tính</td>
-          <td><input id="o5" type="text" readonly></td>
+          <td><input id="o5" type="text" readonly placeholder="Sẽ tự tính"></td>
           <td>₫</td>
         </tr>
         <tr>
@@ -308,7 +311,7 @@ button:active {
         </tr>
         <tr>
           <td>✈️ Phí vận chuyển Nhật - Việt (190.000₫/kg)</td>
-          <td><input id="o7" type="text" readonly></td>
+          <td><input id="o7" type="text" readonly placeholder="Sẽ tự tính"></td>
           <td>₫</td>
         </tr>
        <tr id="o71-row">
@@ -318,7 +321,7 @@ button:active {
 </tr>
         <tr>
           <td>💰 Tổng thiệt hại ước tính 😋</td>
-          <td><input id="o8" type="text" readonly></td>
+          <td><input id="o8" type="text" readonly placeholder="Sẽ tự tính"></td>
           <td>₫</td>
         </tr>
       </tbody>
