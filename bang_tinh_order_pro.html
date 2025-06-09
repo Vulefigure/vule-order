@@ -235,6 +235,68 @@ body {
 .bang-tinh button {
   height: 42px;
 }
+.dropdown-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-btn {
+  height: 42px;
+  padding: 0 16px;
+  font-size: 15px;
+  border-radius: 8px;
+  background: linear-gradient(to bottom, var(--primary), var(--primary-hover));
+  color: #111;
+  font-weight: bold;
+  border: none;
+  box-shadow: 0 4px 0 #b7950b, 0 6px 16px rgba(0,0,0,0.4);
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  width: 180px;
+  text-align: left;
+}
+
+.dropdown-btn::after {
+  content: '▼';
+  float: right;
+  margin-left: 8px;
+  font-size: 12px;
+}
+
+.dropdown-content {
+  position: absolute;
+  top: 48px;
+  left: 0;
+  background-color: #1f1f1f;
+  border: 1px solid #444;
+  border-radius: 10px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.6);
+  display: none;
+  z-index: 10;
+  min-width: 180px;
+  overflow: hidden;
+  animation: fadeSlide 0.25s ease forwards;
+}
+
+.dropdown-content a {
+  display: block;
+  padding: 10px 14px;
+  color: var(--text);
+  text-decoration: none;
+  transition: background 0.2s;
+  font-weight: 500;
+}
+
+.dropdown-content a:hover {
+  background-color: #2c2c2c;
+  color: var(--primary);
+  box-shadow: inset 0 0 6px rgba(255,255,255,0.1);
+}
+
+@keyframes fadeSlide {
+  from { opacity: 0; transform: translateY(-5px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
 
 </style>
 
@@ -303,11 +365,13 @@ body {
       <div class="buttons">
  <div class="send-options">
   <label for="contactMethod" style="display:none;">Chọn phương thức liên hệ</label>
-  <select id="contactMethod" aria-label="Chọn phương thức liên hệ">
-    <option disabled selected>📤 Gửi liên hệ qua...</option>
-    <option value="zalo">📱 Zalo</option>
-    <option value="messenger">💬 Messenger</option>
-  </select>
+  <div class="dropdown-wrapper">
+  <button class="dropdown-btn" onclick="toggleDropdown()">📤 Gửi liên hệ</button>
+  <div class="dropdown-content" id="contactDropdown">
+    <a href="https://zalo.me/0988767811" target="_blank">📱 Qua Zalo</a>
+    <a href="https://m.me/vulefigure" target="_blank">💬 Qua Messenger</a>
+  </div>
+</div>
   <button onclick="sendToContact()">Gửi</button>
 </div>
   <button onclick="window.print()">🖨️ In bảng tính</button>
@@ -413,6 +477,18 @@ body {
         restoreFromLocal();
         setTyGia();
       };
+      function toggleDropdown() {
+  const dropdown = document.getElementById("contactDropdown");
+  dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+}
+
+window.onclick = function(e) {
+  if (!e.target.matches('.dropdown-btn')) {
+    const dropdowns = document.getElementsByClassName("dropdown-content");
+    for (let d of dropdowns) d.style.display = "none";
+  }
+};
+
     </script>
   </body>
   </html>
