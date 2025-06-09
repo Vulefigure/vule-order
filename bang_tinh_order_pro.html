@@ -360,11 +360,11 @@ input[readonly]::placeholder {
 }
 
 @keyframes shake {
-  0% { transform: translateX(0); }
-  25% { transform: translateX(-5px); }
-  50% { transform: translateX(5px); }
-  75% { transform: translateX(-3px); }
-  100% { transform: translateX(0); }
+  0% { transform: translateX(-50%) translateY(0); }
+  25% { transform: translateX(-50%) translateY(-4px); }
+  50% { transform: translateX(-50%) translateY(4px); }
+  75% { transform: translateX(-50%) translateY(-2px); }
+  100% { transform: translateX(-50%) translateY(0); }
 }
 
   </style>
@@ -377,11 +377,21 @@ input[readonly]::placeholder {
   <label><input type="radio" name="productType" value="figure" checked onchange="tinhDonHang()"> 🤖 Figure</label>
   <label><input type="radio" name="productType" value="electronics" onchange="tinhDonHang()"> 💻 Đồ điện tử</label>
 <!-- Ảnh Goku thường -->
-<img id="goku-img" src="https://i.gifer.com/7VE.gif" alt="Goku" style="display:none; max-width:150px; position:absolute; top:-20px; right:-20px; z-index:1000;">
+<!-- >5tr - Sốc 😳 -->
+<img id="goku-img" src="https://media.tenor.com/fSrMZnIV3IMAAAAC/anime-shocked.gif" alt="Anime Shock" style="display:none; max-width:150px; position:absolute; top:-20px; right:-20px; z-index:1000;">
 
-<!-- Ảnh Goku Super Saiyan -->
-<img id="goku-ssj-img" src="https://media.tenor.com/G0kEWT4V5tYAAAAC/goku-super-saiyan.gif" alt="Super Saiyan" style="display:none; max-width:150px; position:absolute; top:-20px; left:-20px; z-index:1000;">
+<!-- >10tr - Khóc thét 😭 -->
+<img id="goku-ssj-img" src="https://media.tenor.com/jp81n5iFS3QAAAAC/anime-cry-money.gif" alt="Anime Cry" style="display:none; max-width:150px; position:absolute; top:-20px; left:-20px; z-index:1000;">
 
+<!-- >20tr - Cười gian 😈 -->
+<img id="anime-smirk-img" src="https://media.tenor.com/4mLgg2TQihMAAAAC/anime-smirk.gif" alt="Anime Smirk" style="display:none; max-width:150px; position:absolute; top:-20px; left:40%; z-index:1000;">
+
+<!-- >30tr - Take my money 🤑 -->
+<img id="anime-rich-img" src="https://media.tenor.com/9PTGXaVahEwAAAAC/anime-rich.gif" alt="Take my money" style="display:none; max-width:180px; position:absolute; bottom:10px; right:10px; z-index:1000;">
+
+<!-- Popup -->
+<div id="easter-popup" style="display:none; position:fixed; top:20px; left:50%; transform:translateX(-50%); width:260px; padding:10px 14px; background:#f39c12; color:black; font-weight:bold; text-align:center; font-size:16px; z-index:1001; border-radius:8px;">
+</div>
 <!-- Popup -->
 <div id="easter-popup" style="display:none; position:fixed; top:20px; left:50%; transform:translateX(-50%); width:260px; padding:10px 14px; background:#f39c12; color:black; font-weight:bold; text-align:center; font-size:16px; z-index:1001; border-radius:8px;">
 </div>
@@ -479,31 +489,35 @@ input[readonly]::placeholder {
       else o71 = 400000;
 
       const o8 = o5 + o7 + o71;
-      const goku = document.getElementById("goku-img");
-const gokuSSJ = document.getElementById("goku-ssj-img");
-const popup = document.getElementById("easter-popup");
+      // Easter Eggs xử lý theo mốc tổn thất
+["goku-img", "goku-ssj-img", "anime-smirk-img", "anime-rich-img"].forEach(id => {
+  const el = document.getElementById(id);
+  if (el) el.style.display = "none";
+});
 
-goku.style.display = "none";
-gokuSSJ.style.display = "none";
+const popup = document.getElementById("easter-popup");
 popup.style.display = "none";
 popup.innerText = "";
 
 if (o8 > 30000000) {
+  document.getElementById("anime-rich-img").style.display = "block";
   popup.style.background = "#ff3333";
   popup.innerText = "🛑 Gọi cấp cứu ví tiền!!";
   popup.style.display = "block";
 } else if (o8 > 20000000) {
-  gokuSSJ.style.display = "block";
+  document.getElementById("anime-smirk-img").style.display = "block";
   popup.innerText = "💥 Bạn là huyền thoại rồi đấy!";
   popup.style.display = "block";
 } else if (o8 > 10000000) {
-  goku.style.display = "block";
+  document.getElementById("goku-ssj-img").style.display = "block";
   popup.innerText = "🔥 Cố lên chiến thần!";
   popup.style.display = "block";
 } else if (o8 > 5000000) {
-  popup.innerText = "😅 Chuẩn bị tinh thần đi nha...";
+  document.getElementById("goku-img").style.display = "block";
+  popup.innerText = "😳 Chuẩn bị tinh thần đi nha...";
   popup.style.display = "block";
 }
+
 
       const format = v => v === 0 ? "" : v.toLocaleString("vi-VN");
 
