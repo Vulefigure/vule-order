@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -171,42 +170,39 @@
       font-size: 14px;
     }
 
+    #o71-row {
+      display: none;
+    }
+
     @media (max-width: 600px) {
       .bang-tinh {
         padding: 12px;
       }
-
       .bang-tinh table {
         font-size: 13px;
       }
-
       .bang-tinh td {
         padding: 6px;
       }
-
       input[type="number"],
       input[type="text"] {
         font-size: 13px;
         padding: 6px;
       }
-
       .product-selector {
         flex-direction: column;
         align-items: flex-start;
         gap: 6px;
       }
-
       .bang-tinh .buttons {
         flex-direction: column;
         gap: 8px;
       }
-
       .send-options {
         flex-direction: column;
         align-items: stretch;
         width: 100%;
       }
-
       .send-options select,
       .send-options button {
         width: 100%;
@@ -218,15 +214,12 @@
         size: A4 portrait;
         margin: 1cm;
       }
-
       body * {
         visibility: hidden;
       }
-
       .bang-tinh, .bang-tinh * {
         visibility: visible;
       }
-
       .bang-tinh {
         position: absolute;
         top: 0;
@@ -238,27 +231,44 @@
         background-color: white !important;
         color: black !important;
       }
-
       .bang-tinh h3 {
         background: none;
         color: black;
       }
-
       .bang-tinh input {
         color: black !important;
         background-color: white !important;
         border: 1px solid #ccc !important;
       }
-
       .buttons,
       .note,
       .product-selector {
         display: none !important;
       }
+      #print-shop-name {
+        display: block;
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        font-size: 14px;
+        color: black;
+        font-weight: bold;
+      }
+      #print-datetime {
+        display: block;
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        font-size: 12px;
+        color: black;
+      }
     }
   </style>
 </head>
 <body>
+  <div id="print-shop-name">Vũ Lê Figure</div>
+  <div id="print-datetime"></div>
+
   <div class="bang-tinh">
     <div class="product-selector">
       <label>Loại sản phẩm:</label>
@@ -287,7 +297,7 @@
         </tr>
         <tr>
           <td>💱 Tỷ giá Yên/VNĐ</td>
-          <td><input id="o4" type="number" value="195" readonly></td>
+          <td><input id="o4" type="number" readonly></td>
           <td>¥ / ₫</td>
         </tr>
         <tr>
@@ -305,7 +315,7 @@
           <td><input id="o7" type="text" readonly placeholder="Phí vận chuyển"></td>
           <td>₫</td>
         </tr>
-        <tr>
+        <tr id="o71-row">
           <td>📦 Phí dịch vụ (Từ 200.000₫ - 400.000₫)</td>
           <td><input id="o71" type="text" readonly placeholder="Tùy theo giá trị sản phẩm tối đa 400.000₫"></td>
           <td>₫</td>
@@ -321,10 +331,10 @@
     <div class="buttons">
       <div class="send-options">
         <select id="contactMethod">
-          <option value="zalo">📱 Gửi qua Zalo</option>
-          <option value="messenger">💬 Gửi qua Messenger</option>
+          <option value="zalo">📱 Qua Zalo</option>
+          <option value="messenger">💬 Qua Messenger</option>
         </select>
-        <button onclick="sendToContact()">📤 Gửi </button>
+        <button onclick="sendToContact()">📤 Liên hệ </button>
       </div>
       <button onclick="window.print()">🖨️ In bảng tính</button>
       <button onclick="resetForm()">🔄 Nhập lại số liệu</button>
@@ -333,6 +343,7 @@
     <div class="note">👉 Bạn vui lòng nhập đầy đủ thông tin để shop ước tính chi phí có thể cho bạn.</div>
     <div class="note">👉 Vui lòng cọc 30% sau khi xác nhận để shop đặt hàng cho bạn nhé.</div>
     <div class="note">⚠️ Phần "Tổng thiệt hại ước tính" chưa bao gồm phí giao sản phẩm đến tận nhà cho bạn.</div>
+    <div class="note" id="tygia-note"></div>
   </div>
 
   <script>
@@ -370,6 +381,9 @@
       document.getElementById("o71").value = format(o71);
       document.getElementById("o8").value = o1 > 0 && o6 > 0 ? format(o8) : "";
 
+      // Hiện ô o71 nếu có giá trị o1
+      document.getElementById("o71-row").style.display = o1 > 0 ? "table-row" : "none";
+
       saveToLocal();
     }
 
@@ -378,6 +392,7 @@
       ["o2", "o5", "o7", "o71", "o8"].forEach(id => document.getElementById(id).value = "");
       document.querySelector('input[value="figure"]').checked = true;
       localStorage.removeItem("orderForm");
+      document.getElementById("o71-row").style.display = "none";
       document.getElementById("o1").focus();
     }
 
@@ -411,7 +426,18 @@
       }
     }
 
-    window.onload = restoreFromLocal;
+    function setTyGia() {
+      const tygia = 195 + 0;
+      document.getElementById("o4").value = tygia;
+      const now = new Date().toLocaleString("vi-VN");
+      document.getElementById("tygia-note").innerText = "💱 Tỷ giá được cập nhật vào " + now;
+      document.getElementById("print-datetime").innerText = now;
+    }
+
+    window.onload = () => {
+      restoreFromLocal();
+      setTyGia();
+    };
   </script>
 </body>
 </html>
