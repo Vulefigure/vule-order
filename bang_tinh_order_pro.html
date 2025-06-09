@@ -124,6 +124,32 @@ body {
               0 4px 10px rgba(255, 215, 0, 0.2);
   margin-top: 16px;
 }
+      .buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 24px;
+}
+
+.send-options {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.send-options select {
+  padding: 8px 12px;
+  border-radius: 8px;
+  background-color: #1c1c1c;
+  color: var(--text);
+  border: 1px solid #3a3a3a;
+  box-shadow: inset 2px 2px 5px rgba(0,0,0,0.6),
+              inset -2px -2px 5px rgba(255,255,255,0.05);
+  appearance: none;
+  cursor: pointer;
+  font-size: 14px;
+}
 </style>
 
   </head>
@@ -189,16 +215,16 @@ body {
       </table>
   
       <div class="buttons">
-        <div class="send-options">
-          <select id="contactMethod">
-            <option value="zalo">📱 Qua Zalo</option>
-            <option value="messenger">💬 Qua Messenger</option>
-          </select>
-          <button onclick="sendToContact()">📤 Liên hệ </button>
-        </div>
-        <button onclick="window.print()">🖨️ In bảng tính</button>
-        <button onclick="resetForm()">🔄 Nhập lại số liệu</button>
-      </div>
+  <div class="send-options">
+    <select id="contactMethod">
+      <option value="zalo">📱 Qua Zalo</option>
+      <option value="messenger">💬 Qua Messenger</option>
+    </select>
+    <button onclick="sendToContact()">📤 Liên hệ</button>
+    <button onclick="window.print()">🖨️ In bảng tính</button>
+    <button onclick="resetForm()">🔄 Nhập lại</button>
+  </div>
+</div>
   
       <div class="note">👉 Bạn vui lòng nhập đầy đủ thông tin để shop ước tính chi phí có thể cho bạn.</div>
       <div class="note">👉 Vui lòng cọc 30% sau khi xác nhận để shop đặt hàng cho bạn nhé.</div>
