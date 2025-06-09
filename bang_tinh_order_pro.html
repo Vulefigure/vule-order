@@ -3,508 +3,178 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Bảng Tính Order Pro</title>
+  <title>Bảng Tính - Vũ Lê Figure</title>
   <style>
-    :root {
-      --primary: #f1c40f;
-      --background: #121212;
-      --input-bg: #1e1e1e;
-      --text: #ffffff;
-      --highlight: #fff0b3;
-    }
-
     body {
-      background-color: var(--background);
-      color: var(--text);
-      font-family: 'Arial', sans-serif;
-      margin: 0;
-      padding: 20px;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to right, #f0f0f0, #e0e0e0);
+      padding: 40px;
     }
 
-    ::placeholder {
-      font-family: 'Arial', sans-serif;
-      font-size: 13px;
-      font-weight: 300;
-      color: #cccccc;
-      font-style: italic;
-      opacity: 1;
-    }
-
-    .bang-tinh {
-      max-width: 850px;
-      margin: auto;
-      background-color: #1a1a1a;
-      border: 2px solid var(--primary);
-      border-radius: 16px;
-      padding: 20px;
-      box-shadow: 0 0 30px rgba(241, 196, 15, 0.2);
+    .calculator {
+      max-width: 600px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      padding: 30px;
       position: relative;
     }
 
-    .product-selector {
-      display: flex;
-      justify-content: flex-end;
-      margin-bottom: 15px;
-      gap: 10px;
-      align-items: center;
-      color: var(--primary);
-      font-weight: bold;
-    }
-
-    .bang-tinh h3 {
-      background: linear-gradient(to right, #f39c12, #f1c40f);
-      color: #000;
-      padding: 14px;
-      border-radius: 10px;
+    h1 {
       text-align: center;
-      font-size: 20px;
       margin-bottom: 20px;
     }
 
-    .bang-tinh table {
+    table {
       width: 100%;
       border-collapse: collapse;
-      table-layout: fixed;
     }
 
-    .bang-tinh td {
-      border: 1px solid var(--primary);
+    td {
       padding: 10px;
-      vertical-align: middle;
     }
 
-    .bang-tinh td:first-child {
-      width: 50%;
-      font-weight: bold;
-      color: var(--primary);
-      text-align: left;
-    }
-
-    .bang-tinh td:nth-child(2) {
-      width: 44%;
-      text-align: left;
-    }
-
-    .bang-tinh td:nth-child(3) {
-      width: 6%;
-      background-color: #000;
-      color: var(--primary);
-      text-align: center;
-      font-size: 16px;
-      font-weight: bold;
-      vertical-align: middle;
-    }
-
-    input[type="number"],
-    input[type="text"] {
+    input[type="number"] {
       width: 100%;
-      padding: 8px;
-      border-radius: 6px;
-      border: 1px solid var(--primary);
-      background-color: var(--input-bg);
-      color: var(--text);
-      font-size: 14px;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 16px;
     }
 
     input[readonly] {
+      background-color: #f9f9f9;
+      border: 1px solid #ddd;
+    }
+
+    .result {
       font-weight: bold;
-      background-color: #2a2a2a;
     }
 
-    input:focus {
-      outline: none;
-      box-shadow: 0 0 6px var(--primary);
-    }
-
-    #o8 {
-      background-color: #222;
-      border: 2px dashed var(--primary);
-      color: var(--primary);
-    }
-
-    .buttons {
+    .button-container {
+      text-align: center;
       margin-top: 20px;
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      justify-content: space-between;
     }
 
-    .bang-tinh button {
+    button {
       padding: 10px 20px;
       border: none;
-      border-radius: 6px;
-      font-weight: bold;
+      background-color: #007bff;
+      color: white;
+      border-radius: 10px;
       cursor: pointer;
+      font-size: 16px;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    #print-shop-name {
+      display: block;
+      position: absolute;
+      top: 10px;
+      left: 10px;
       font-size: 14px;
-      background: var(--primary);
-      color: #000;
-      transition: all 0.2s ease-in-out;
-    }
-
-    .bang-tinh button:hover {
-      background: #f39c12;
-    }
-
-    .note {
-      font-size: 13px;
-      font-style: italic;
-      color: #ccc;
-      margin-top: 16px;
-    }
-
-    .send-options {
-      display: flex;
-      gap: 10px;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-
-    .send-options select {
-      padding: 8px;
-      border-radius: 6px;
-      border: 1px solid var(--primary);
-      background-color: var(--input-bg);
-      color: var(--text);
+      color: black;
       font-weight: bold;
-      font-size: 14px;
     }
 
-    #o71-row {
-      display: none;
+    #print-slogan {
+      display: block;
+      position: absolute;
+      bottom: 10px;
+      left: 10px;
+      font-size: 12px;
+      color: black;
+      font-style: italic;
+      font-weight: 300;
+      font-family: 'Arial', sans-serif;
     }
 
-    @media (max-width: 600px) {
-      .bang-tinh {
-        padding: 12px;
-      }
-      .bang-tinh table {
-        font-size: 13px;
-      }
-      .bang-tinh td {
-        padding: 6px;
-      }
-      input[type="number"],
-      input[type="text"] {
-        font-size: 13px;
-        padding: 6px;
-      }
-      .product-selector {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 6px;
-      }
-      .bang-tinh .buttons {
-        flex-direction: column;
-        gap: 8px;
-      }
-      .send-options {
-        flex-direction: column;
-        align-items: stretch;
-        width: 100%;
-      }
-      .send-options select,
-      .send-options button {
-        width: 100%;
-      }
+    #print-datetime {
+      display: block;
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      font-size: 12px;
+      color: black;
+      font-weight: 400;
     }
-
-    @media print {
-      @page {
-        size: A4 portrait;
-        margin: 1cm;
-      }
-      body * {
-        visibility: hidden;
-      }
-      .bang-tinh, .bang-tinh * {
-        visibility: visible;
-      }
-      .bang-tinh {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        padding: 10mm;
-        border: none;
-        box-shadow: none;
-        background-color: white !important;
-        color: black !important;
-      }
-      .bang-tinh h3 {
-        background: none;
-        color: black;
-      }
-      .bang-tinh input {
-        color: black !important;
-        background-color: white !important;
-        border: 1px solid #ccc !important;
-      }
-      .buttons,
-      .note,
-      .product-selector {
-        display: none !important;
-      }
-      #print-shop-name {
-        display: block;
-        position: absolute;
-        top: 10px;
-        left: 10px;
-        font-size: 14px;
-        color: black;
-        font-weight: bold;
-      }
-      #print-datetime {
-        display: block;
-        position: absolute;
-        bottom: 10px;
-        right: 10px;
-        font-size: 12px;
-        color: black;
-      }
-    }
-    #print-header {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  right: 10px;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  font-family: Arial, sans-serif;
-}
-
-#print-header .left {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 2px;
-}
-
-#print-shop-name {
-  font-size: 14px;
-  font-weight: bold;
-  font-style: normal;
-  color: black;
-}
-
-#print-slogan {
-  font-size: 12px;
-  font-weight: 300;
-  color: black;
-  font-style: normal;
-}
-
-#print-datetime {
-  font-size: 11px;
-  font-weight: 300;
-  color: black;
-  font-style: normal;
-  text-align: right;
-}
   </style>
 </head>
 <body>
-  <div id="print-header">
-  <div class="left">
+  <div class="calculator">
     <div id="print-shop-name">Vũ Lê Figure</div>
     <div id="print-slogan">Mang thế giới Wibu đến bên bạn</div>
-  </div>
-  <div class="right">
     <div id="print-datetime"></div>
-  </div>
-</div>
-  <div id="print-shop-name">Vũ Lê Figure</div>
-  <div id="print-datetime"></div>
 
-  <div class="bang-tinh">
-    <div class="product-selector">
-      <label>Loại sản phẩm:</label>
-      <label><input type="radio" name="productType" value="figure" checked onchange="tinhDonHang()"> Figure</label>
-      <label><input type="radio" name="productType" value="electronics" onchange="tinhDonHang()"> Đồ điện tử</label>
-    </div>
-
-    <h3>📦 BẢNG TÍNH CHI PHÍ ORDER FIGURE TỪ NHẬT BẢN</h3>
-
+    <h1>Bảng Tính Đặt Hàng</h1>
     <table>
-      <tbody>
-        <tr>
-          <td>💴 Giá website Nhật hiển thị (JPY)</td>
-          <td><input id="o1" type="number" placeholder="Nhập giá web" oninput="tinhDonHang()"></td>
-          <td>¥</td>
-        </tr>
-        <tr>
-          <td>🧾 Phí thanh toán (3%)</td>
-          <td><input id="o2" type="text" readonly placeholder="Phí thanh toán (3%) + 1200¥ nếu là đồ điện tử"></td>
-          <td>¥</td>
-        </tr>
-        <tr>
-          <td>🚚 Phí vận chuyển nội địa Nhật</td>
-          <td><input id="o3" type="number" placeholder="Ship nội địa" oninput="tinhDonHang()"></td>
-          <td>¥</td>
-        </tr>
-        <tr>
-          <td>💱 Tỷ giá Yên/VNĐ</td>
-          <td><input id="o4" type="number" readonly></td>
-          <td>¥ / ₫</td>
-        </tr>
-        <tr>
-          <td>💡 Tổng tạm tính</td>
-          <td><input id="o5" type="text" readonly placeholder="Tạm tính VNĐ"></td>
-          <td>₫</td>
-        </tr>
-        <tr>
-          <td>⚖️ Khối lượng sản phẩm (kg)</td>
-          <td><input id="o6" type="number" placeholder="Nhập khối lượng" oninput="tinhDonHang()"></td>
-          <td>Kg</td>
-        </tr>
-        <tr>
-          <td>✈️ Phí vận chuyển Nhật - Việt (190.000₫/kg)</td>
-          <td><input id="o7" type="text" readonly placeholder="Phí vận chuyển"></td>
-          <td>₫</td>
-        </tr>
-        <tr id="o71-row" style="display: table-row;">
-  <td>...</td>
-  <td><input id="o71" placeholder="Thành tiền Yên sau thuế" /></td>
-</tr>
-        <tr>
-          <td>💰 Tổng thiệt hại ước tính 😋</td>
-          <td><input id="o8" type="text" readonly placeholder="Tổng thiệt hại"></td>
-          <td>₫</td>
-        </tr>
-      </tbody>
+      <tr>
+        <td>Giá sản phẩm tại Nhật (yên):</td>
+        <td><input type="number" id="o1" placeholder="Nhập giá sản phẩm" /></td>
+      </tr>
+      <tr>
+        <td>Phí vận chuyển nội địa Nhật:</td>
+        <td><input type="number" id="o2" placeholder="Nhập phí nội địa nếu có" /></td>
+      </tr>
+      <tr>
+        <td>Phí ship về VN:</td>
+        <td><input type="number" id="o3" placeholder="Thường 100.000 - 120.000₫" /></td>
+      </tr>
+      <tr>
+        <td>Tỉ giá yên/đồng:</td>
+        <td><input type="number" id="o4" placeholder="VD: 180" /></td>
+      </tr>
+      <tr>
+        <td>Phí dịch vụ:</td>
+        <td><input type="number" id="o5" placeholder="VD: 10%" /></td>
+      </tr>
+      <tr>
+        <td>Phụ phí khác (nếu có):</td>
+        <td><input type="number" id="o6" placeholder="Thêm phí nếu có" /></td>
+      </tr>
+      <tr id="o71-row">
+        <td>Phí dịch vụ tối đa:</td>
+        <td><input type="text" id="o71" placeholder="Tùy theo giá trị sản phẩm tối đa 400.000₫" readonly /></td>
+      </tr>
+      <tr>
+        <td>Tổng tiền tạm tính:</td>
+        <td><input type="text" id="o7" class="result" readonly /></td>
+      </tr>
     </table>
-
-    <div class="buttons">
-      <div class="send-options">
-        <select id="contactMethod">
-          <option value="zalo">📱 Qua Zalo</option>
-          <option value="messenger">💬 Qua Messenger</option>
-        </select>
-        <button onclick="sendToContact()">📤 Liên hệ </button>
-      </div>
-      <button onclick="window.print()">🖨️ In bảng tính</button>
-      <button onclick="resetForm()">🔄 Nhập lại số liệu</button>
+    <div class="button-container">
+      <button onclick="tinhDonHang()">Tính Toán</button>
     </div>
-
-    <div class="note">👉 Bạn vui lòng nhập đầy đủ thông tin để shop ước tính chi phí có thể cho bạn.</div>
-    <div class="note">👉 Vui lòng cọc 30% sau khi xác nhận để shop đặt hàng cho bạn nhé.</div>
-    <div class="note">⚠️ Phần "Tổng thiệt hại ước tính" chưa bao gồm phí giao sản phẩm đến tận nhà cho bạn.</div>
-    <div class="note" id="tygia-note"></div>
   </div>
 
   <script>
+    function format(num) {
+      return Number(num).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+    }
+
     function tinhDonHang() {
       const o1 = parseFloat(document.getElementById("o1").value) || 0;
+      const o2 = parseFloat(document.getElementById("o2").value) || 0;
       const o3 = parseFloat(document.getElementById("o3").value) || 0;
-      const o4 = parseFloat(document.getElementById("o4").value) || 195;
+      const o4 = parseFloat(document.getElementById("o4").value) || 0;
+      const o5 = parseFloat(document.getElementById("o5").value) || 0;
       const o6 = parseFloat(document.getElementById("o6").value) || 0;
 
-      const selectedType = document.querySelector('input[name="productType"]:checked').value;
+      const tienHang = (o1 + o2) * o4;
+      const phiDichVu = Math.min(tienHang * (o5 / 100), 400000);
+      const tong = tienHang + phiDichVu + o3 + o6;
 
-      if (o1 < 0 || o3 < 0 || o6 < 0) {
-        alert("Vui lòng nhập số hợp lệ.");
-        return;
-      }
+      const o71El = document.getElementById("o71");
+      o71El.value = o1 > 0 ? format(phiDichVu) : "";
 
-      let o2 = o1 * 0.03;
-      if (selectedType === "electronics") o2 += 1200;
-
-      const o5 = (o1 + o2 + o3) * o4;
-      const o7 = o6 * 190000;
-
-      let o71 = 0;
-      if (o1 < 4000) o71 = 200000;
-      else if (o1 < 10000) o71 = 300000;
-      else o71 = 400000;
-
-      const o8 = o5 + o7 + o71;
-
-      const format = v => v === 0 ? "" : v.toLocaleString("vi-VN");
-
-      document.getElementById("o2").value = format(o2);
-      document.getElementById("o5").value = format(o5);
-      document.getElementById("o7").value = format(o7);
-      document.getElementById("o71").value = format(o71);
-      document.getElementById("o8").value = o1 > 0 && o6 > 0 ? format(o8) : "";
-
-      // Hiện ô o71 nếu có giá trị o1
-      document.getElementById("o71-row").style.display = o1 > 0 ? "table-row" : "none";
-
-      saveToLocal();
+      document.getElementById("o7").value = format(tong);
     }
 
-    function resetForm() {
-      ["o1", "o3", "o6"].forEach(id => document.getElementById(id).value = "");
-      ["o2", "o5", "o7", "o71", "o8"].forEach(id => document.getElementById(id).value = "");
-      document.querySelector('input[value="figure"]').checked = true;
-      localStorage.removeItem("orderForm");
-      document.getElementById("o71-row").style.display = "none";
-      document.getElementById("o1").focus();
-    }
-
-    function saveToLocal() {
-      const data = {
-        o1: document.getElementById("o1").value,
-        o3: document.getElementById("o3").value,
-        o6: document.getElementById("o6").value,
-        productType: document.querySelector('input[name="productType"]:checked').value
-      };
-      localStorage.setItem("orderForm", JSON.stringify(data));
-    }
-
-    function restoreFromLocal() {
-      const saved = JSON.parse(localStorage.getItem("orderForm") || "{}");
-      if (saved.o1) document.getElementById("o1").value = saved.o1;
-      if (saved.o3) document.getElementById("o3").value = saved.o3;
-      if (saved.o6) document.getElementById("o6").value = saved.o6;
-      if (saved.productType) {
-        document.querySelector(`input[value="${saved.productType}"]`).checked = true;
-      }
-      tinhDonHang();
-    }
-const o1 = parseFloat(document.getElementById("o1").value) || 0;
-const o71Field = document.getElementById("o71");
-
-if (o1 > 0) {
-  o71Field.value = format(o71);
-  o71Field.style.color = "";
-  o71Field.style.textShadow = "";
-} else {
-  o71Field.value = ""; // Ẩn dữ liệu
-  o71Field.style.color = "transparent"; // Ẩn chữ
-  o71Field.style.textShadow = "0 0 0 var(--primary)"; // Hiện placeholder
-}
-    function sendToContact() {
-      const method = document.getElementById("contactMethod").value;
-      if (method === "zalo") {
-        window.open("https://zalo.me/0988767811");
-      } else if (method === "messenger") {
-        window.open("https://m.me/vulefigure");
-      }
-    }
-
-    function setTyGia() {
-      const tygia = 195 + 0;
-      document.getElementById("o4").value = tygia;
-      const now = new Date().toLocaleString("vi-VN");
-      document.getElementById("tygia-note").innerText = "💱 Tỷ giá được cập nhật vào " + now;
-      document.getElementById("print-datetime").innerText = now;
-    }
-
-    window.onload = () => {
-      restoreFromLocal();
-      setTyGia();
-    };
-    // In thời gian hiện tại
-const now = new Date().toLocaleString("vi-VN", {
-  hour: "2-digit",
-  minute: "2-digit",
-  day: "2-digit",
-  month: "2-digit",
-  year: "numeric"
-});
-document.getElementById("print-datetime").innerText = now;
+    // In ngày giờ hiện tại
+    document.getElementById("print-datetime").innerText = new Date().toLocaleString("vi-VN");
   </script>
 </body>
 </html>
