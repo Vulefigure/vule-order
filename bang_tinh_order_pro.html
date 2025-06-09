@@ -5,276 +5,127 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Bảng Tính Order Pro</title>
     <style>
-      :root {
-        --primary: #f1c40f;
-        --background: #121212;
-        --input-bg: #1e1e1e;
-        --text: #ffffff;
-        --highlight: #fff0b3;
-      }
-  
-      body {
-        background-color: var(--background);
-        color: var(--text);
-        font-family: 'Arial', sans-serif;
-        margin: 0;
-        padding: 20px;
-      }
-  
-      ::placeholder {
-        font-family: 'Arial', sans-serif;
-        font-size: 13px;
-        font-weight: 300;
-        color: #cccccc;
-        font-style: italic;
-        opacity: 1;
-      }
-  
-      .bang-tinh {
-        max-width: 850px;
-        margin: auto;
-        background-color: #1a1a1a;
-        border: 2px solid var(--primary);
-        border-radius: 16px;
-        padding: 20px;
-        box-shadow: 0 0 30px rgba(241, 196, 15, 0.2);
-        position: relative;
-      }
-  
-      .product-selector {
-        display: flex;
-        justify-content: flex-end;
-        margin-bottom: 15px;
-        gap: 10px;
-        align-items: center;
-        color: var(--primary);
-        font-weight: bold;
-      }
-  
-      .bang-tinh h3 {
-        background: linear-gradient(to right, #f39c12, #f1c40f);
-        color: #000;
-        padding: 14px;
-        border-radius: 10px;
-        text-align: center;
-        font-size: 20px;
-        margin-bottom: 20px;
-      }
-  
-      .bang-tinh table {
-        width: 100%;
-        border-collapse: collapse;
-        table-layout: fixed;
-      }
-  
-      .bang-tinh td {
-        border: 1px solid var(--primary);
-        padding: 10px;
-        vertical-align: middle;
-      }
-  
-      .bang-tinh td:first-child {
-        width: 50%;
-        font-weight: bold;
-        color: var(--primary);
-        text-align: left;
-      }
-  
-      .bang-tinh td:nth-child(2) {
-        width: 44%;
-        text-align: left;
-      }
-  
-      .bang-tinh td:nth-child(3) {
-        width: 6%;
-        background-color: #000;
-        color: var(--primary);
-        text-align: center;
-        font-size: 16px;
-        font-weight: bold;
-        vertical-align: middle;
-      }
-  
-      input[type="number"],
-      input[type="text"] {
-        width: 100%;
-        padding: 8px;
-        border-radius: 6px;
-        border: 1px solid var(--primary);
-        background-color: var(--input-bg);
-        color: var(--text);
-        font-size: 14px;
-      }
-  
-      input[readonly] {
-        font-weight: bold;
-        background-color: #2a2a2a;
-      }
-  
-      input:focus {
-        outline: none;
-        box-shadow: 0 0 6px var(--primary);
-      }
-  
-      #o8 {
-        background-color: #222;
-        border: 2px dashed var(--primary);
-        color: var(--primary);
-      }
-  
-      .buttons {
-        margin-top: 20px;
-        display: flex;
-        gap: 10px;
-        flex-wrap: wrap;
-        justify-content: space-between;
-      }
-  
-      .bang-tinh button {
-        padding: 10px 20px;
-        border: none;
-        border-radius: 6px;
-        font-weight: bold;
-        cursor: pointer;
-        font-size: 14px;
-        background: var(--primary);
-        color: #000;
-        transition: all 0.2s ease-in-out;
-      }
-  
-      .bang-tinh button:hover {
-        background: #f39c12;
-      }
-  
-      .note {
-        font-size: 13px;
-        font-style: italic;
-        color: #ccc;
-        margin-top: 16px;
-      }
-  
-      .send-options {
-        display: flex;
-        gap: 10px;
-        align-items: center;
-        flex-wrap: wrap;
-      }
-  
-      .send-options select {
-        padding: 8px;
-        border-radius: 6px;
-        border: 1px solid var(--primary);
-        background-color: var(--input-bg);
-        color: var(--text);
-        font-weight: bold;
-        font-size: 14px;
-      }
-  
-      @media (max-width: 600px) {
-        .bang-tinh {
-          padding: 12px;
-        }
-        .bang-tinh table {
-          font-size: 13px;
-        }
-        .bang-tinh td {
-          padding: 6px;
-        }
-        input[type="number"],
-        input[type="text"] {
-          font-size: 13px;
-          padding: 6px;
-        }
-        .product-selector {
-          flex-direction: column;
-          align-items: flex-start;
-          gap: 6px;
-        }
-        .bang-tinh .buttons {
-          flex-direction: column;
-          gap: 8px;
-        }
-        .send-options {
-          flex-direction: column;
-          align-items: stretch;
-          width: 100%;
-        }
-        .send-options select,
-        .send-options button {
-          width: 100%;
-        }
-      }
-  #shop-name {
-  position: fixed;
-  top: 10px;
-  left: 20px;
-  font-size: 16px;
-  font-weight: bold;
-  color: var(--primary);
-  font-family: 'Arial', sans-serif;
-  z-index: 999;
+:root {
+  --primary: #f1c40f;
+  --primary-hover: #d4ac0d;
+  --text: #f0f0f0;
+  --bg: #121212;
 }
-     @media print {
-  @page {
-    size: A4 portrait;
-    margin: 1cm;
-  }
-  body * {
-    visibility: hidden;
-  }
-  .bang-tinh, .bang-tinh *,
-  #print-shop-name,
-  #print-slogan {
-    visibility: visible;
-  }
-        .bang-tinh {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          padding: 10mm;
-          border: none;
-          box-shadow: none;
-          background-color: white !important;
-          color: black !important;
-        }
-        .bang-tinh h3 {
-          background: none;
-          color: black;
-        }
-        .bang-tinh input {
-          color: black !important;
-          background-color: white !important;
-          border: 1px solid #ccc !important;
-        }
-        .buttons,
-        .note,
-        .product-selector {
-          display: none !important;
-        }
-   #print-shop-name {
-    display: block;
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    font-size: 14px;
-    color: #f1c40f;
-    font-weight: bold;
-    font-family: 'Arial', sans-serif;
-  }
-       #print-slogan {
-    display: block;
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
-    font-size: 12px;
-    color: black;
-    font-weight: 300;
-    font-style: italic;
-    font-family: 'Arial', sans-serif;
-  }
-      }
-    </style>
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
+  margin: 0;
+  padding: 20px;
+}
+
+.bang-tinh {
+  max-width: 800px;
+  margin: auto;
+  padding: 24px;
+  background: linear-gradient(to bottom right, #1c1c1c, #262626);
+  border-radius: 16px;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.6),
+              inset 0 0 12px rgba(255, 255, 255, 0.03);
+  transition: all 0.3s ease;
+}
+
+.bang-tinh h3 {
+  text-align: center;
+  margin-bottom: 24px;
+  color: #111;
+  background: linear-gradient(145deg, #f5c842, #d4ac0d);
+  border-radius: 12px;
+  padding: 12px;
+  border: 1px solid #e1b12c;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.3), inset 0 -2px 4px rgba(255,255,255,0.3);
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.bang-tinh table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: linear-gradient(to bottom right, #1c1c1c, #262626);
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6),
+              inset 0 0 8px rgba(255, 255, 255, 0.05);
+  overflow: hidden;
+}
+
+.bang-tinh td {
+  padding: 8px;
+  text-align: center;
+  border: 1px solid #2a2a2a;
+  background: #1f1f1f;
+  box-shadow: inset 1px 1px 2px rgba(255,255,255,0.05),
+              inset -1px -1px 2px rgba(0,0,0,0.4);
+  transition: background-color 0.3s;
+}
+
+.bang-tinh td input[type="number"],
+.bang-tinh td input[type="text"] {
+  width: 100%;
+  padding: 6px;
+  box-sizing: border-box;
+  border-radius: 8px;
+  background-color: #1c1c1c;
+  color: var(--text);
+  border: 1px solid #3a3a3a;
+  box-shadow: inset 2px 2px 5px rgba(0,0,0,0.6),
+              inset -2px -2px 5px rgba(255,255,255,0.05);
+  transition: all 0.2s ease-in-out;
+}
+
+.bang-tinh td input[type="number"]:focus,
+.bang-tinh td input[type="text"]:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 8px var(--primary),
+              inset 0 0 6px rgba(255,255,255,0.1);
+}
+
+.bang-tinh button {
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  background: linear-gradient(to bottom, var(--primary), var(--primary-hover));
+  color: #111;
+  font-weight: bold;
+  box-shadow: 0 4px 0 #b7950b,
+              0 6px 20px rgba(0, 0, 0, 0.3);
+  transform: translateY(0);
+  transition: all 0.2s ease-in-out;
+}
+
+.bang-tinh button:hover {
+  background: linear-gradient(to bottom, var(--primary-hover), #b7950b);
+}
+
+.bang-tinh button:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 #b7950b;
+}
+
+#o8 {
+  font-weight: bold;
+  font-size: 18px;
+  background-color: #222;
+  border: 2px dashed var(--primary);
+  padding: 12px;
+  border-radius: 10px;
+  text-align: center;
+  color: var(--primary);
+  box-shadow: inset 0 0 8px rgba(255,255,255,0.1),
+              0 4px 10px rgba(255, 215, 0, 0.2);
+  margin-top: 16px;
+}
+</style>
+
   </head>
   <body>
   
