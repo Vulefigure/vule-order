@@ -297,7 +297,11 @@ body {
   from { opacity: 0; transform: translateY(-5px); }
   to   { opacity: 1; transform: translateY(0); }
 }
-
+.tygia-note {
+    font-size: 0.75em;
+    color: #66bb6a; /* xanh lá sáng */
+    margin-top: 2px;
+  }
 </style>
 
   </head>
@@ -329,15 +333,15 @@ body {
             <td><input id="o3" type="number" placeholder="Ship nội địa" oninput="tinhDonHang()"></td>
             <td>¥</td>
           </tr>
-          tr>
-  <td colspan="3" style="display: flex; flex-direction: column;">
-    <div style="display: flex; align-items: center;">
-      <span style="margin-right: 8px;">💱 Tỷ giá Yên/VNĐ</span>
-      <input id="o4" type="number" readonly style="width: 80px; margin-right: 8px;">
-      <span>¥ / ₫</span>
-    </div>
-    <div id="tygia-note" style="font-size: 0.65em; color: #00FF99; margin-top: 2px; margin-left: 24px;">
-      💱 Tỷ giá được cập nhật vào 15:43:04 9/6/2025
+          <tr>
+  <td>💱 Tỷ giá Yên/VNĐ</td>
+  <td>
+    <div style="display: flex; flex-direction: column;">
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <input type="number" class="form-control" value="195" style="width: 80px;" />
+        <span>¥ / đ</span>
+      </div>
+      <span class="tygia-note">💱 Tỷ giá được cập nhật vào 15:43:04 9/6/2025</span>
     </div>
   </td>
 </tr>
