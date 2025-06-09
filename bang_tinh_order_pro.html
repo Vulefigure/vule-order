@@ -468,14 +468,18 @@ input[readonly]::placeholder {
     </table>
 
     <div class="buttons">
-      <div class="send-options">
-  <select id="contactMethod" onchange="sendToContact(this.value)">
-    <option disabled selected>📬 Chọn phương thức liên hệ</option>
-    <option value="zalo">📱 Gửi qua Zalo</option>
-    <option value="messenger">💬 Gửi qua Messenger</option>
-  </select>
-        <!-- Gợi ý người dùng -->
-  <small style="color: #aaa; font-style: italic;">👉 Chọn để gửi báo giá ngay lập tức.</small>
+  <div class="send-options">
+    <select id="contactMethod" onchange="sendToContact(this.value)">
+      <option disabled selected>📬 Chọn phương thức liên hệ</option>
+      <option value="zalo">📱 Gửi qua Zalo</option>
+      <option value="messenger">💬 Gửi qua Messenger</option>
+    </select>
+    <small style="color: #aaa; font-style: italic;">👉 Chọn để gửi báo giá ngay lập tức.</small>
+  </div>
+
+  <!-- Các nút này NẰM NGOÀI send-options -->
+  <button onclick="window.print()">🧾 In để in ra ví luôn</button>
+  <button onclick="resetForm()">♻️ Làm lại từ đầu</button>
 </div>
 
     <div class="note">👉 Nhập đầy đủ thông tin để shop tính chi phí gần chính xác nhất cho bạn nhé.</div>
