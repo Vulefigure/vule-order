@@ -264,6 +264,98 @@ input[readonly]::placeholder {
   color: #777;
   font-style: italic;
 }
+    @media (max-width: 600px) {
+  body {
+    padding: 10px;
+  }
+
+  .bang-tinh {
+    padding: 15px;
+    border-radius: 10px;
+  }
+
+  h3 {
+    font-size: 16px;
+    padding: 10px;
+  }
+
+  .product-selector {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    font-size: 14px;
+  }
+
+  table,
+  td {
+    display: block;
+    width: 100%;
+  }
+
+  table tr {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+  }
+
+  td {
+    border: none;
+    padding: 4px 0;
+  }
+
+  td:first-child {
+    width: 100%;
+    font-size: 14px;
+    margin-bottom: 4px;
+  }
+
+  td:nth-child(2),
+  td:nth-child(3) {
+    width: 100%;
+  }
+
+  td:nth-child(3) {
+    text-align: left;
+    font-size: 13px;
+    margin-top: 2px;
+  }
+
+  input[type="number"],
+  input[type="text"],
+  select {
+    font-size: 14px;
+    padding: 6px;
+  }
+
+  .buttons {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .send-options {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+  }
+
+  button,
+  select {
+    width: 100%;
+    font-size: 15px;
+  }
+
+  #print-shop-name {
+    font-size: 14px;
+    top: 5px;
+    left: 10px;
+  }
+
+  .note {
+    font-size: 12px;
+  }
+}
+
   </style>
 </head>
 <body>
