@@ -355,6 +355,17 @@ input[readonly]::placeholder {
     font-size: 12px;
   }
 }
+#easter-popup {
+  animation: shake 0.5s ease-in-out;
+}
+
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  50% { transform: translateX(5px); }
+  75% { transform: translateX(-3px); }
+  100% { transform: translateX(0); }
+}
 
   </style>
 </head>
@@ -365,7 +376,17 @@ input[readonly]::placeholder {
   <label>Loại sản phẩm:</label>
   <label><input type="radio" name="productType" value="figure" checked onchange="tinhDonHang()"> 🤖 Figure</label>
   <label><input type="radio" name="productType" value="electronics" onchange="tinhDonHang()"> 💻 Đồ điện tử</label>
+<!-- Ảnh Goku thường -->
+<img id="goku-img" src="https://i.gifer.com/7VE.gif" alt="Goku" style="display:none; max-width:150px; position:absolute; top:-20px; right:-20px; z-index:1000;">
+
+<!-- Ảnh Goku Super Saiyan -->
+<img id="goku-ssj-img" src="https://media.tenor.com/G0kEWT4V5tYAAAAC/goku-super-saiyan.gif" alt="Super Saiyan" style="display:none; max-width:150px; position:absolute; top:-20px; left:-20px; z-index:1000;">
+
+<!-- Popup -->
+<div id="easter-popup" style="display:none; position:fixed; top:0; left:0; right:0; padding:14px; background:#f39c12; color:black; font-weight:bold; text-align:center; font-size:18px; z-index:1001; border-radius:0 0 12px 12px;">
 </div>
+
+    </div>
 
     <h3>📦 BẢNG TÍNH CHI PHÍ ORDER FIGURE TỪ NHẬT BẢN</h3>
 
@@ -458,6 +479,32 @@ input[readonly]::placeholder {
       else o71 = 400000;
 
       const o8 = o5 + o7 + o71;
+      const goku = document.getElementById("goku-img");
+const gokuSSJ = document.getElementById("goku-ssj-img");
+const popup = document.getElementById("easter-popup");
+
+goku.style.display = "none";
+gokuSSJ.style.display = "none";
+popup.style.display = "none";
+popup.innerText = "";
+
+if (o8 > 30000000) {
+  popup.style.background = "#ff3333";
+  popup.innerText = "🛑 Gọi cấp cứu ví tiền!!";
+  popup.style.display = "block";
+} else if (o8 > 20000000) {
+  gokuSSJ.style.display = "block";
+  popup.innerText = "💥 Bạn là huyền thoại rồi đấy!";
+  popup.style.display = "block";
+} else if (o8 > 10000000) {
+  goku.style.display = "block";
+  popup.innerText = "🔥 Cố lên chiến thần!";
+  popup.style.display = "block";
+} else if (o8 > 5000000) {
+  popup.innerText = "😅 Chuẩn bị tinh thần đi nha...";
+  popup.style.display = "block";
+}
+
       const format = v => v === 0 ? "" : v.toLocaleString("vi-VN");
 
       document.getElementById("o2").value = format(o2);
