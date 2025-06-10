@@ -1,60 +1,50 @@
-
 <!DOCTYPE html>
 <html lang="vi">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Bảng Tính Order Pro - 3D Full</title>
+  <title>Bảng Tính Order Pro</title>
   <style>
     :root {
       --primary: #f1c40f;
       --background: #121212;
       --input-bg: #1e1e1e;
       --text: #ffffff;
+      --highlight: #fff0b3;
     }
 
     body {
       background-color: var(--background);
       color: var(--text);
-      font-family: Arial, sans-serif;
+      font-family: 'Arial', sans-serif;
       margin: 0;
       padding: 20px;
     }
 
+    ::placeholder {
+      font-size: 13px;
+      font-style: italic;
+      color: #ccc;
+    }
+
     .bang-tinh {
-      position: relative;
-      background: linear-gradient(145deg, #1c1c1c, #121212);
-      border: 1px solid #3a3a3a;
-      border-radius: 20px;
-      padding: 20px;
       max-width: 850px;
       margin: auto;
-      box-shadow:
-        -10px 10px 20px rgba(0, 0, 0, 0.7),
-        inset -1px -1px 2px rgba(255, 255, 255, 0.05),
-        inset 1px 1px 2px rgba(255, 255, 255, 0.05);
-      transform-style: preserve-3d;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      perspective: 800px;
+      background: #1a1a1a;
+      border: 2px solid var(--primary);
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 0 30px rgba(241, 196, 15, 0.2);
+      position: relative;
     }
 
-    .bang-tinh:hover {
-      transform: rotateX(4deg) rotateY(8deg);
-      box-shadow:
-        -20px 20px 40px rgba(0, 0, 0, 0.8),
-        inset -2px -2px 4px rgba(255, 255, 255, 0.05),
-        inset 2px 2px 4px rgba(255, 255, 255, 0.05);
-    }
-
-    .bang-tinh::before {
-      content: "";
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: linear-gradient(135deg, rgba(255,255,255,0.05), transparent 70%);
-      border-radius: inherit;
-      pointer-events: none;
-      z-index: 1;
+    .product-selector {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-bottom: 15px;
+      color: var(--primary);
+      font-weight: bold;
     }
 
     h3 {
@@ -96,8 +86,7 @@
     }
 
     input[type="number"],
-    input[type="text"],
-    select {
+    input[type="text"] {
       width: 100%;
       padding: 8px;
       border-radius: 6px;
@@ -105,20 +94,22 @@
       background: var(--input-bg);
       color: var(--text);
       font-size: 14px;
-      box-shadow: inset 0 0 5px rgba(0,0,0,0.4), 0 2px 8px rgba(0,0,0,0.6);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    input:focus,
-    select:focus {
-      transform: scale(1.02);
-      box-shadow: 0 0 8px var(--primary);
-      outline: none;
     }
 
     input[readonly] {
       background: #2a2a2a;
       font-weight: bold;
+    }
+
+    input:focus {
+      outline: none;
+      box-shadow: 0 0 6px var(--primary);
+    }
+
+    #o8 {
+      background: #222;
+      border: 2px dashed var(--primary);
+      color: var(--primary);
     }
 
     .buttons {
@@ -139,16 +130,10 @@
       font-size: 14px;
       cursor: pointer;
       transition: 0.2s;
-      box-shadow: 0 4px 0 #cda60a;
     }
 
     button:hover {
       background: #f39c12;
-    }
-
-    button:active {
-      transform: translateY(2px);
-      box-shadow: 0 2px 0 #a08708;
     }
 
     .note {
@@ -165,16 +150,225 @@
       align-items: center;
     }
 
-    #o8 {
-      background: #222;
-      border: 2px dashed var(--primary);
-      color: var(--primary);
+    select {
+      padding: 8px;
+      border-radius: 6px;
+      border: 1px solid var(--primary);
+      background: var(--input-bg);
+      color: var(--text);
+      font-weight: bold;
     }
+
+    #print-shop-name {
+      position: fixed;
+      top: 30px;
+      left: 10px;
+      font-size: 16px;
+      font-weight: bold;
+      color: var(--primary);
+      z-index: 999;
+    }
+
+    @media print {
+      @page {
+        size: A4 portrait;
+        margin: 1cm;
+      }
+      body * {
+        visibility: hidden;
+      }
+      .bang-tinh, .bang-tinh * {
+        visibility: visible;
+      }
+      .bang-tinh {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        padding: 10mm;
+        background: white !important;
+        color: black !important;
+        border: none;
+        box-shadow: none;
+      }
+      .bang-tinh input {
+        color: black !important;
+        background: white !important;
+        border: 1px solid #ccc !important;
+      }
+      .buttons,
+      .note,
+      .product-selector {
+        display: none !important;
+      }
+      #print-shop-name,
+      #print-datetime {
+        visibility: visible !important;
+        position: absolute;
+      }
+      #print-shop-name {
+        top: 10px;
+        left: 10px;
+        font-size: 14px;
+        color: #000;
+      }
+      #print-datetime {
+        bottom: 10px;
+        right: 10px;
+        font-size: 12px;
+        font-style: italic;
+        color: #000;
+      }
+    }
+    .bang-tinh {
+  perspective: 1000px;
+  transform-style: preserve-3d;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  will-change: transform;
+}
+
+/* Hiệu ứng nghiêng khi rê chuột */
+.bang-tinh:hover {
+  transform: rotateY(2deg) rotateX(1deg);
+  box-shadow: 0 20px 50px rgba(241, 196, 15, 0.3);
+}
+
+/* Nâng cấp ô input cho có chiều sâu */
+input[type="number"],
+input[type="text"],
+select {
+  box-shadow: inset 0 0 5px rgba(0,0,0,0.4), 0 2px 8px rgba(0,0,0,0.6);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Nhấn nhẹ xuống khi focus */
+input[type="number"]:focus,
+input[type="text"]:focus,
+select:focus {
+  transform: scale(1.02);
+  box-shadow: 0 0 8px var(--primary);
+}
+
+/* Nút bấm có chiều nổi */
+button {
+  box-shadow: 0 4px 0 #cda60a;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Hiệu ứng nhấn nút */
+button:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 #a08708;
+}
+input[readonly]::placeholder {
+  color: #777;
+  font-style: italic;
+}
+    @media (max-width: 600px) {
+  body {
+    padding: 10px;
+  }
+
+  .bang-tinh {
+    padding: 15px;
+    border-radius: 10px;
+  }
+
+  h3 {
+    font-size: 16px;
+    padding: 10px;
+  }
+
+  .product-selector {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    font-size: 14px;
+  }
+
+  table,
+  td {
+    display: block;
+    width: 100%;
+  }
+
+  table tr {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+  }
+
+  td {
+    border: none;
+    padding: 4px 0;
+  }
+
+  td:first-child {
+    width: 100%;
+    font-size: 14px;
+    margin-bottom: 4px;
+  }
+
+  td:nth-child(2),
+  td:nth-child(3) {
+    width: 100%;
+  }
+
+  td:nth-child(3) {
+    text-align: left;
+    font-size: 13px;
+    margin-top: 2px;
+  }
+
+  input[type="number"],
+  input[type="text"],
+  select {
+    font-size: 14px;
+    padding: 6px;
+  }
+
+  .buttons {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .send-options {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+  }
+
+  button,
+  select {
+    width: 100%;
+    font-size: 15px;
+  }
+
+  #print-shop-name {
+    font-size: 14px;
+    top: 5px;
+    left: 10px;
+  }
+
+  .note {
+    font-size: 12px;
+  }
+}
+
   </style>
 </head>
 <body>
+  <div id="print-shop-name">Vũ Lê Figure</div>
   <div class="bang-tinh">
+    <div class="product-selector">
+  <label>Loại sản phẩm:</label>
+  <label><input type="radio" name="productType" value="figure" checked onchange="tinhDonHang()"> 🤖 Figure</label>
+  <label><input type="radio" name="productType" value="electronics" onchange="tinhDonHang()"> 💻 Đồ điện tử</label>
+</div>
+
     <h3>📦 BẢNG TÍNH CHI PHÍ ORDER FIGURE TỪ NHẬT BẢN</h3>
+
     <table>
       <tbody>
         <tr>
@@ -184,7 +378,7 @@
         </tr>
         <tr>
           <td>🧾 Phí thanh toán bên Nhật (3%)</td>
-          <td><input id="o2" type="text" readonly></td>
+          <td><input id="o2" type="text" readonly placeholder="Phí dịch vụ mua hàng tại Nhật"></td>
           <td>¥</td>
         </tr>
         <tr>
@@ -194,12 +388,12 @@
         </tr>
         <tr>
           <td>💱 Tỷ giá Yên/VNĐ</td>
-          <td><input id="o4" type="number" readonly value="195"></td>
+          <td><input id="o4" type="number" readonly></td>
           <td>¥ / ₫</td>
         </tr>
         <tr>
           <td>💡 Tổng tạm tính</td>
-          <td><input id="o5" type="text" readonly></td>
+          <td><input id="o5" type="text" readonly placeholder="Chí phí tại Nhật tạm tính"></td>
           <td>₫</td>
         </tr>
         <tr>
@@ -209,34 +403,38 @@
         </tr>
         <tr>
           <td>✈️ Phí vận chuyển Nhật - Việt (190.000₫/kg)</td>
-          <td><input id="o7" type="text" readonly></td>
+          <td><input id="o7" type="text" readonly placeholder="Phí vận chuyển từ Nhật về Việt Nam"></td>
           <td>₫</td>
         </tr>
-        <tr>
-          <td>📦 Phí dịch vụ (Từ 200.000₫ - 400.000₫)</td>
-          <td><input id="o71" type="text" readonly></td>
-          <td>₫</td>
-        </tr>
+       <tr id="o71-row">
+  <td>📦 Phí dịch vụ (Từ 200.000₫ - 400.000₫)</td>
+  <td><input id="o71" type="text" readonly placeholder="Tùy theo giá trị sản phẩm tối đa 400.000₫"></td>
+  <td>₫</td>
+</tr>
         <tr>
           <td>💰 Tổng thiệt hại ước tính 😋</td>
-          <td><input id="o8" type="text" readonly></td>
+          <td><input id="o8" type="text" readonly placeholder="Tổng thiệt hại ước tính cho ví của bạn"></td>
           <td>₫</td>
         </tr>
       </tbody>
     </table>
+
     <div class="buttons">
       <div class="send-options">
-        <select id="contactMethod" onchange="sendToContact(this.value)">
-          <option disabled selected>📬 Chọn phương thức liên hệ</option>
-          <option value="zalo">📱 Gửi qua Zalo</option>
-          <option value="messenger">💬 Gửi qua Messenger</option>
+        <select id="contactMethod">
+          <option value="zalo">📱 Qua Zalo</option>
+          <option value="messenger">💬 Qua Messenger</option>
         </select>
+        <button onclick="sendToContact()">📤 Liên hệ</button>
       </div>
-      <button onclick="window.print()">🧾 In bảng tính</button>
-      <button onclick="resetForm()">♻️ Làm lại từ đầu</button>
+      <button onclick="window.print()">🖨️ In bảng tính</button>
+      <button onclick="resetForm()">🔄 Nhập lại số liệu</button>
     </div>
+
     <div class="note">👉 Nhập đầy đủ thông tin để shop tính chi phí gần chính xác nhất cho bạn nhé.</div>
     <div class="note">👉 Sau khi xác nhận vui lòng cọc 30% để shop đặt hàng cho bạn.</div>
+    <div class="note">⚠️ Tổng thiệt hại chưa bao gồm phí giao hàng đến tận tay cho bạn.</div>
+    <div class="note" id="tygia-note"></div>
   </div>
 
   <script>
@@ -246,7 +444,11 @@
       const o4 = parseFloat(document.getElementById("o4").value) || 195;
       const o6 = parseFloat(document.getElementById("o6").value) || 0;
 
+      const type = document.querySelector('input[name="productType"]:checked').value;
+      if (o1 < 0 || o3 < 0 || o6 < 0) return alert("Vui lòng nhập số hợp lệ.");
+
       let o2 = o1 * 0.03;
+      if (type === "electronics") o2 += 1200;
       const o5 = (o1 + o2 + o3) * o4;
       const o7 = o6 * 190000;
 
@@ -262,21 +464,75 @@
       document.getElementById("o5").value = format(o5);
       document.getElementById("o7").value = format(o7);
       document.getElementById("o8").value = o1 > 0 && o6 > 0 ? format(o8) : "";
+
       document.getElementById("o71").value = o1 > 0 ? format(o71) : "";
+
+      saveToLocal();
     }
 
     function resetForm() {
       ["o1", "o3", "o6"].forEach(id => document.getElementById(id).value = "");
       ["o2", "o5", "o7", "o71", "o8"].forEach(id => document.getElementById(id).value = "");
+      document.querySelector('input[value="figure"]').checked = true;
+      localStorage.removeItem("orderForm");
     }
 
-    function sendToContact(method) {
-      if (method === "zalo") {
-        window.open("https://zalo.me/0988767811");
-      } else if (method === "messenger") {
-        window.open("https://m.me/vulefigure");
-      }
+    function saveToLocal() {
+      const data = {
+        o1: document.getElementById("o1").value,
+        o3: document.getElementById("o3").value,
+        o6: document.getElementById("o6").value,
+        productType: document.querySelector('input[name="productType"]:checked').value
+      };
+      localStorage.setItem("orderForm", JSON.stringify(data));
     }
+
+    function restoreFromLocal() {
+      const saved = JSON.parse(localStorage.getItem("orderForm") || "{}");
+      if (saved.o1) document.getElementById("o1").value = saved.o1;
+      if (saved.o3) document.getElementById("o3").value = saved.o3;
+      if (saved.o6) document.getElementById("o6").value = saved.o6;
+      if (saved.productType)
+        document.querySelector(`input[value="${saved.productType}"]`).checked = true;
+      tinhDonHang();
+    }
+
+    function sendToContact() {
+      const method = document.getElementById("contactMethod").value;
+      if (method === "zalo") window.open("https://zalo.me/0988767811");
+      else if (method === "messenger") window.open("https://m.me/vulefigure");
+    }
+
+    function setTyGia() {
+      const tygia = 195;
+      document.getElementById("o4").value = tygia;
+      const now = new Date().toLocaleString("vi-VN");
+      document.getElementById("tygia-note").innerText = "💱 Tỷ giá được cập nhật vào " + now;
+      document.getElementById("print-datetime").innerText = now;
+    }
+
+    window.onload = () => {
+      restoreFromLocal();
+      setTyGia();
+    };
   </script>
+  <script>
+  const card = document.querySelector(".bang-tinh");
+
+  document.addEventListener("mousemove", (e) => {
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left - rect.width / 2;
+    const y = e.clientY - rect.top - rect.height / 2;
+
+    const rotateX = (-y / 30).toFixed(2);
+    const rotateY = (x / 30).toFixed(2);
+
+    card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+  });
+
+  document.addEventListener("mouseleave", () => {
+    card.style.transform = "rotateX(0deg) rotateY(0deg)";
+  });
+</script>
 </body>
 </html>
