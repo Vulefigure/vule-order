@@ -422,7 +422,7 @@ input[readonly]::placeholder {
           <td>¥</td>
         </tr>
         <tr>
-          <td>🧾 Phí thanh toán bên Nhật (3%)</td>
+          <td>🧾 Phí thanh toán bên Nhật (5%)</td>
           <td><input id="o2" type="text" readonly placeholder="Phí dịch vụ mua hàng tại Nhật"></td>
           <td>¥</td>
         </tr>
@@ -433,7 +433,7 @@ input[readonly]::placeholder {
         </tr>
         <tr>
           <td>💱 Tỷ giá Yên/VNĐ</td>
-          <td><input id="o4" type="number" value="195" readonly></td>
+          <td><input id="o4" type="number" value="183" readonly></td>
           <td>¥ / ₫</td>
         </tr>
         <tr>
@@ -447,13 +447,13 @@ input[readonly]::placeholder {
           <td>Kg</td>
         </tr>
         <tr>
-          <td>✈️ Phí vận chuyển Nhật - Việt (190.000₫/kg)</td>
+          <td>✈️ Phí vận chuyển Nhật - Việt (195.000₫/kg)</td>
           <td><input id="o7" type="text" readonly placeholder="Phí vận chuyển từ Nhật về Việt Nam"></td>
           <td>₫</td>
         </tr>
        <tr id="o71-row">
-  <td>📦 Phí dịch vụ (Từ 200.000₫ - 400.000₫)</td>
-  <td><input id="o71" type="text" readonly placeholder="Tùy theo giá trị sản phẩm tối đa 400.000₫"></td>
+  <td>📦 Phí dịch vụ </td>
+  <td><input id="o71" type="text" readonly placeholder="Tùy theo giá trị sản phẩm tối đa 100.000₫"></td>
   <td>₫</td>
 </tr>
         <tr>
@@ -488,21 +488,21 @@ input[readonly]::placeholder {
     function tinhDonHang() {
       const o1 = parseFloat(document.getElementById("o1").value) || 0;
       const o3 = parseFloat(document.getElementById("o3").value) || 0;
-      const o4 = parseFloat(document.getElementById("o4").value) || 195;
+      const o4 = parseFloat(document.getElementById("o4").value) || 183;
       const o6 = parseFloat(document.getElementById("o6").value) || 0;
 
       const type = document.querySelector('input[name="productType"]:checked').value;
       if (o1 < 0 || o3 < 0 || o6 < 0) return alert("Vui lòng nhập số hợp lệ.");
 
-      let o2 = o1 * 0.03;
+      let o2 = o1 * 0.05;
       if (type === "electronics") o2 += 1200;
       const o5 = (o1 + o2 + o3) * o4;
-      const o7 = o6 * 190000;
+      const o7 = o6 * 195000;
 
       let o71 = 0;
-      if (o1 < 4000) o71 = 200000;
-      else if (o1 < 10000) o71 = 300000;
-      else o71 = 400000;
+      if (o1 < 4000) o71 = 00000;
+      else if (o1 < 10000) o71 = 25000;
+      else o71 = 50000;
 
       const o8 = o5 + o7 + o71;
       // Easter Eggs xử lý theo mốc tổn thất
@@ -598,7 +598,7 @@ if (o8 > 30000000) {
   }
 }
     function setTyGia() {
-      const tygia = 195;
+      const tygia = 183;
       document.getElementById("o4").value = tygia;
       const now = new Date().toLocaleString("vi-VN");
       document.getElementById("tygia-note").innerText = "💱 Tỷ giá được cập nhật vào " + now;
