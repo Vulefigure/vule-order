@@ -422,7 +422,7 @@ input[readonly]::placeholder {
           <td>¥</td>
         </tr>
         <tr>
-          <td>🧾 Phí thanh toán bên Nhật (5%)</td>
+          <td>🧾 Phí thanh toán bên Nhật (6%)</td>
           <td><input id="o2" type="text" readonly placeholder="Phí dịch vụ mua hàng tại Nhật"></td>
           <td>¥</td>
         </tr>
@@ -447,7 +447,7 @@ input[readonly]::placeholder {
           <td>Kg</td>
         </tr>
         <tr>
-          <td>✈️ Phí vận chuyển Nhật - Việt (195.000₫/kg)</td>
+          <td>✈️ Phí vận chuyển Nhật - Việt (210.000₫/kg)</td>
           <td><input id="o7" type="text" readonly placeholder="Phí vận chuyển từ Nhật về Việt Nam"></td>
           <td>₫</td>
         </tr>
@@ -485,48 +485,37 @@ input[readonly]::placeholder {
   </div>
 
   <script>
-// Cấu hình mặc định (nếu không đọc được Google Sheet)
-    let CONFIG = {
-      feePercent: 0.05,      // 5%
-      exchangeRate: 183,     // Tỷ giá
-      shippingPerKg: 195000  // Phí vận chuyển /kg
+// Giá trị mặc định nếu gọi API lỗi
+let CONFIG = {
+  feePercent: 0.05,
+  exchangeRate: 183,
+  shippingPerKg: 195000
+};
+
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby6TxZ7WEaZRcSy5wYBhFqdAr3cmV2DchzPygivVkewQXCSYuc5VZZxzjIvW41X7GfE/exec';
+
+async function loadConfigFromScript() {
+  try {
+    const res = await fetch(SCRIPT_URL);
+    const data = await res.json();
+
+    CONFIG = {
+      feePercent: Number(data.feePercent) || CONFIG.feePercent,
+      exchangeRate: Number(data.exchangeRate) || CONFIG.exchangeRate,
+      shippingPerKg: Number(data.shippingPerKg) || CONFIG.shippingPerKg
     };
-    async function loadConfigFromSheet() {
-      const url = "https://docs.google.com/spreadsheets/d/11hmUgkOdWWjtyC7nCaOuUqM9NGHhK-LhMN499yi_Enw/gviz/tq?tqx=out:json&gid=1699158617";
 
-      try {
-        const res = await fetch(url);
-        const text = await res.text();
+    // hiển thị tỷ giá ra ô o4
+    document.getElementById("o4").value = CONFIG.exchangeRate;
 
-        // Google trả về dạng "/*O_o*/google.visualization.Query.setResponse(...);"
-        const json = JSON.parse(text.substring(47, text.length - 2));
-        const row = json.table.rows[1]; // hàng 2 (index = 1)
-
-        const feePercent   = row.c[0]?.v ?? CONFIG.feePercent;
-        const exchangeRate = row.c[1]?.v ?? CONFIG.exchangeRate;
-        const shippingPerKg = row.c[2]?.v ?? CONFIG.shippingPerKg;
-
-        CONFIG = {
-          feePercent: Number(feePercent),
-          exchangeRate: Number(exchangeRate),
-          shippingPerKg: Number(shippingPerKg),
-        };
-
-        // Cập nhật vào ô Tỷ giá
-        document.getElementById("o4").value = CONFIG.exchangeRate;
-
-        const now = new Date().toLocaleString("vi-VN");
-        document.getElementById("tygia-note").innerText =
-          "💱 Tỷ giá/fee đang lấy từ Google Sheet (cập nhật: " + now + ")";
-
-        // Tính lại đơn hàng với config mới
-        tinhDonHang();
-      } catch (e) {
-        console.error("Lỗi khi đọc Google Sheet:", e);
-        // Nếu lỗi thì dùng config default
-        document.getElementById("o4").value = CONFIG.exchangeRate;
-      }
-    }
+    // tính lại
+    tinhDonHang();
+  } catch (err) {
+    console.error('Lỗi gọi Apps Script:', err);
+    // nếu lỗi vẫn dùng CONFIG mặc định
+    document.getElementById("o4").value = CONFIG.exchangeRate;
+  }
+}
 
     function tinhDonHang() {
       const o1 = parseFloat(document.getElementById("o1").value) || 0;
@@ -642,9 +631,10 @@ if (o8 > 30000000) {
 }
    
  window.onload = () => {
-      restoreFromLocal();
-      loadConfigFromSheet();  // Lấy config từ Google Sheet
-    };
+  restoreFromLocal();
+  loadConfigFromScript();
+};
+
   </script>
   <script>
   const card = document.querySelector(".bang-tinh");
