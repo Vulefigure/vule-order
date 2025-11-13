@@ -485,19 +485,62 @@ input[readonly]::placeholder {
   </div>
 
   <script>
+// Cấu hình mặc định (nếu không đọc được Google Sheet)
+    let CONFIG = {
+      feePercent: 0.05,      // 5%
+      exchangeRate: 183,     // Tỷ giá
+      shippingPerKg: 195000  // Phí vận chuyển /kg
+    };
+    async function loadConfigFromSheet() {
+      const url = "https://docs.google.com/spreadsheets/d/11hmUgkOdWWtyC7nCa0uUqM9NGHNk-LhNM49yj_Env/gviz/tq?tqx=out:json&sheet=Gia%20Order";
+
+      try {
+        const res = await fetch(url);
+        const text = await res.text();
+
+        // Google trả về dạng "/*O_o*/google.visualization.Query.setResponse(...);"
+        const json = JSON.parse(text.substring(47, text.length - 2));
+        const row = json.table.rows[1]; // hàng 2 (index = 1)
+
+        const feePercent   = row.c[0]?.v ?? CONFIG.feePercent;
+        const exchangeRate = row.c[1]?.v ?? CONFIG.exchangeRate;
+        const shippingPerKg = row.c[2]?.v ?? CONFIG.shippingPerKg;
+
+        CONFIG = {
+          feePercent: Number(feePercent),
+          exchangeRate: Number(exchangeRate),
+          shippingPerKg: Number(shippingPerKg),
+        };
+
+        // Cập nhật vào ô Tỷ giá
+        document.getElementById("o4").value = CONFIG.exchangeRate;
+
+        const now = new Date().toLocaleString("vi-VN");
+        document.getElementById("tygia-note").innerText =
+          "💱 Tỷ giá/fee đang lấy từ Google Sheet (cập nhật: " + now + ")";
+
+        // Tính lại đơn hàng với config mới
+        tinhDonHang();
+      } catch (e) {
+        console.error("Lỗi khi đọc Google Sheet:", e);
+        // Nếu lỗi thì dùng config default
+        document.getElementById("o4").value = CONFIG.exchangeRate;
+      }
+    }
+
     function tinhDonHang() {
       const o1 = parseFloat(document.getElementById("o1").value) || 0;
       const o3 = parseFloat(document.getElementById("o3").value) || 0;
-      const o4 = parseFloat(document.getElementById("o4").value) || 183;
+      const o4 = parseFloat(document.getElementById("o4").value) || CONFIG.exchangeRate;
       const o6 = parseFloat(document.getElementById("o6").value) || 0;
 
       const type = document.querySelector('input[name="productType"]:checked').value;
       if (o1 < 0 || o3 < 0 || o6 < 0) return alert("Vui lòng nhập số hợp lệ.");
 
-      let o2 = o1 * 0.05;
+      let o2 = o1 * CONFIG.feePercent;
       if (type === "electronics") o2 += 1200;
       const o5 = (o1 + o2 + o3) * o4;
-      const o7 = o6 * 195000;
+      const o7 = o6 * CONFIG.shippingPerKg;
 
       let o71 = 0;
       if (o1 < 4000) o71 = 00000;
@@ -586,7 +629,7 @@ if (o8 > 30000000) {
       if (saved.o3) document.getElementById("o3").value = saved.o3;
       if (saved.o6) document.getElementById("o6").value = saved.o6;
       if (saved.productType)
-        document.querySelector(input[value="${saved.productType}"]).checked = true;
+        document.querySelector(`input[value="${saved.productType}"]`).checked = true;
       tinhDonHang();
     }
 
@@ -597,17 +640,10 @@ if (o8 > 30000000) {
     window.open("https://m.me/vulefigure");
   }
 }
-    function setTyGia() {
-      const tygia = 183;
-      document.getElementById("o4").value = tygia;
-      const now = new Date().toLocaleString("vi-VN");
-      document.getElementById("tygia-note").innerText = "💱 Tỷ giá được cập nhật vào " + now;
-      document.getElementById("print-datetime").innerText = now;
-    }
-
-    window.onload = () => {
+   
+ window.onload = () => {
       restoreFromLocal();
-      setTyGia();
+      loadConfigFromSheet();  // Lấy config từ Google Sheet
     };
   </script>
   <script>
