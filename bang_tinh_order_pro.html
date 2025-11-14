@@ -453,7 +453,7 @@ input[readonly]::placeholder {
         </tr>
        <tr id="o71-row">
   <td>📦 Phí dịch vụ </td>
-  <td><input id="o71" type="text" readonly placeholder="Tùy theo giá trị sản phẩm tối đa 100.000₫"></td>
+  <td><input id="o71" type="text" readonly placeholder="Tùy theo giá trị sản phẩm tối đa 200.000₫"></td>
   <td>₫</td>
 </tr>
         <tr>
@@ -532,9 +532,9 @@ async function loadConfigFromScript() {
       const o7 = o6 * CONFIG.shippingPerKg;
 
       let o71 = 0;
-      if (o1 < 4000) o71 = 00000;
-      else if (o1 < 10000) o71 = 25000;
-      else o71 = 50000;
+      if (o1 < 4000) o71 = 100000;
+      else if (o1 < 10000) o71 = 150000;
+      else o71 = 200000;
 
       const o8 = o5 + o7 + o71;
       // Easter Eggs xử lý theo mốc tổn thất
